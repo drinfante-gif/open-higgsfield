@@ -372,6 +372,11 @@ export function OpenHiggsfieldApp({ fontClassName = "" }: { fontClassName?: stri
       createdAt: startedAt,
     };
 
+    /* The prompt is snapshotted into the draft above, so the composer can
+       be emptied now. Leaving it filled invites a second press on the same
+       text, which is a second paid request. */
+    (entry.surface === "image" ? useImagePrompt : useVideoPrompt).getState().setText("");
+
     setError(null);
     /* Newest press on top, above whatever is still rendering from the last. */
     setRuns((prev) => [...pending, ...prev]);
